@@ -1,8 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/db");
-const User = require("./user.model");
 
-const proyect = sequelize.define('proyectos', {
+const Proyect = sequelize.define('proyectos', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -17,8 +16,9 @@ const proyect = sequelize.define('proyectos', {
         allowNull: false,
     },
     fecha_creacion: {
-        type: DataTypes.DATETIME,
+        type: DataTypes.DATE,
         allowNull: false,
+        defaultValue: DataTypes.NOW,
     },
     administrador_id: {
         type: DataTypes.INTEGER,
@@ -30,4 +30,4 @@ const proyect = sequelize.define('proyectos', {
     tableName: 'proyectos',
 });
 
-module.exports = proyect;
+module.exports = Proyect;
