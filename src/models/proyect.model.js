@@ -8,15 +8,15 @@ const Proyect = sequelize.define('proyectos', {
         autoIncrement: true,
     },
     nombre: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(50),
         allowNull: false,
     },
     descripcion: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(150),
         allowNull: false,
     },
     fecha_creacion: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false,
         defaultValue: DataTypes.NOW,
     },
@@ -25,7 +25,7 @@ const Proyect = sequelize.define('proyectos', {
         allowNull: false,
         references: { model: 'usuarios', key: 'id' },
     },
-},{
+}, {
     timestamps: false,
     tableName: 'proyectos',
 });

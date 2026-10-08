@@ -1,27 +1,30 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
-const User = require('./user.model');
-const Proyect = require('./proyect.model');
-
-const UserProyect = sequelize.define('user_proyects', {
+ 
+const UserProyect = sequelize.define('usuarios_proyectos', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
     },
-    user_id: {
+    usuario_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: { model: 'usuarios', key: 'id' },
     },
-    proyect_id: {
+    proyecto_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: { model: 'proyectos', key: 'id' },
     },
-},{
+}, {
     timestamps: false,
-    tableName: 'user_proyects',
+    tableName: 'usuarios_proyectos',
+    indexes: [
+        // Evita asignar al mismo usuario dos veces al mismo proyecto
+        { unique: true, fields: ['usuario_id', 'proyecto_id'] },
+    ],
 });
-
+ 
 module.exports = UserProyect;
+ 

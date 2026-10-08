@@ -8,16 +8,16 @@ const User = sequelize.define('usuarios', {
         autoIncrement: true,
     },
     nombre: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(50),
         allowNull: false,
     },
     email: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(100),
         allowNull: false,
         unique: true,
     },
     password: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(255),
         allowNull: false,
     },
     rol_id: {
@@ -30,7 +30,7 @@ const User = sequelize.define('usuarios', {
         allowNull: true,
         references: { model: 'usuarios', key: 'id' },
     },
-},{
+}, {
     timestamps: false,
     tableName: 'usuarios',
 });
