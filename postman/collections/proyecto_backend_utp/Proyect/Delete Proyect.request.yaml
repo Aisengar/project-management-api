@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{baseUrl}}/proyectos/{{projectId}}"
+method: DELETE
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Proyecto eliminado", () => {
+          pm.response.to.have.status(200);
+          const json = pm.response.json();
+          pm.expect(json.message).to.eql("Proyecto eliminado correctamente");
+      });
+    language: text/javascript
+order: 4362848597176882

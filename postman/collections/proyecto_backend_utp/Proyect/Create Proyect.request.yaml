@@ -1,0 +1,21 @@
+$kind: http-request
+url: "{{baseUrl}}/proyectos"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "nombre": "Proyecto Test",
+        "descripcion": "Proyecto de prueba"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Proyecto creado", () => {
+          pm.response.to.have.status(201);
+          const json = pm.response.json();
+          pm.expect(json.proyect.nombre).to.eql("Proyecto Demo");
+          pm.environment.set("projectId", json.proyect.id);
+      });
+    language: text/javascript
+order: 1793994387621

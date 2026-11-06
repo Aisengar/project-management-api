@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{baseUrl}}/proyectos"
+method: GET
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("La lista incluye el proyecto creado", () => {
+          pm.response.to.have.status(200);
+          const projects = pm.response.json();
+          const id = Number(pm.environment.get("projectId"));
+          pm.expect(projects.some(p => p.id === id)).to.be.true;
+      });
+    language: text/javascript
+order: 3239392228452166

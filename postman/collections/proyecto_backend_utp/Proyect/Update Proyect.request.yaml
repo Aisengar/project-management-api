@@ -1,0 +1,11 @@
+$kind: http-request
+url: "{{baseUrl}}/proyectos/{{projectId}}"
+method: PUT
+body:
+  type: json
+  content: |-
+    {
+      "nombre": "Proyecto Editado",
+      "descripcion": "Descripción actualizada"
+    }
+order: 4326359356379011

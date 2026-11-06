@@ -1,4 +1,21 @@
 $kind: http-request
-url: ""
-method: GET
+url: "{{baseUrl}}/users/update/{{userId}}"
+method: PUT
+body:
+  type: json
+  content: |-
+    {
+      "nombre": "Juan Pérez",
+      "email": "juan@correo.com",
+      "rol_id": 2
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Usuario actualizado", () => {
+          pm.response.to.have.status(200);
+          const json = pm.response.json();
+          pm.expect(json.user.nombre).to.eql("Juan Pérez");
+      });
+    language: text/javascript
 order: 171531472633531

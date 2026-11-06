@@ -1,0 +1,18 @@
+$kind: http-request
+url: "{{baseUrl}}/proyectos/{{projectId}}/usuarios"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+          "usuario_id": {{userId}}
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Usuario asignado: status 201", () => {
+          pm.response.to.have.status(201);
+          pm.expect(pm.response.json().message).to.include("asignado");
+      });
+    language: text/javascript
+order: 1793995989821

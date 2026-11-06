@@ -53,3 +53,26 @@ exports.deleteProyect = async (req, res, next) => {
         res.status(400).json({ message: error.message });
     }
 };
+
+exports.assignUser = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const { usuario_id } = req.body;
+        const administrador_id = req.user.id;
+        await proyectService.assignUser(id, usuario_id, administrador_id);
+        res.status(201).json({ message: 'Usuario asignado al proyecto exitosamente' });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+exports.removeUser = async (req, res, next) => {
+    try {
+        const { id, usuarioId } = req.params;
+        const administrador_id = req.user.id;
+        const result = await proyectService.removeUser(id, usuarioId, administrador_id);
+        res.json(result);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};

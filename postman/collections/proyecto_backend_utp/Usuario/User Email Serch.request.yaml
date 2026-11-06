@@ -1,4 +1,9 @@
 $kind: http-request
-url: ""
+url: "{{baseUrl}}/users/?email=juan@correo.com"
 method: GET
+queryParams:
+  - key: email
+    value: juan@correo.com
+    disabled: false
+    description: ""
 order: 4489536343804892

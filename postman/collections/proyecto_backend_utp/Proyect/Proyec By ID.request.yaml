@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{baseUrl}}/proyectos/{{projectId}}"
+method: GET
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Devuelve el proyecto correcto", () => {
+          pm.response.to.have.status(200);
+          const json = pm.response.json();
+          pm.expect(json.id).to.eql(Number(pm.environment.get("projectId")));
+          pm.expect(json.nombre).to.eql("Proyecto Demo");
+      });
+    language: text/javascript
+order: 4261559688257901

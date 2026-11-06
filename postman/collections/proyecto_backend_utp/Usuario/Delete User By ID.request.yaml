@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{baseUrl}}/users/delete/{{userId}}"
+method: DELETE
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Usuario eliminado", () => {
+          pm.response.to.have.status(200);
+          const json = pm.response.json();
+          pm.expect(json.message).to.include("eliminado correctamente");
+      });
+    language: text/javascript
+order: 4498466281487187
