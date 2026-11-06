@@ -1,14 +1,14 @@
-const User = require('./user.model');
+const User = require('../models/user.model');
 const bycrypt = require('bcryptjs');
 
-exports.createUser = async (name, email, password, rol_id, administrador_id) => {
+exports.createUser = async (nombre, email, password, rol_id, administrador_id) => {
     try{
         const userExist = await User.findOne({ where: { email } });
         if(userExist){
             throw new Error('El usuario ya existe');
         }
         const hashedPassword = await bycrypt.hash(password, 10);
-        const user = await User.create({ name, email, password: hashedPassword, rol_id, administrador_id });
+        const user = await User.create({ nombre, email, password: hashedPassword, rol_id, administrador_id });
         return user;
     }
     catch(error){
@@ -16,7 +16,7 @@ exports.createUser = async (name, email, password, rol_id, administrador_id) => 
     }
 }
 
-exports.updateUser = async (id, name, email, password, rol_id, administrador_id, admin_from_token) => {
+exports.updateUser = async (id, nombre, email, password, rol_id, administrador_id, admin_from_token) => {
     try{
         const userUpdate = await User.findByPk(id);
         if(!userUpdate){
@@ -31,7 +31,7 @@ exports.updateUser = async (id, name, email, password, rol_id, administrador_id,
                 throw new Error('El email ya esta en uso');
             }
         }
-        const updates = {name, email, rol_id};
+        const updates = {nombre, email, rol_id};
         if(password){
             const hashedPassword = await bycrypt.hash(password, 10);
             updates.password = hashedPassword;
@@ -45,7 +45,7 @@ exports.updateUser = async (id, name, email, password, rol_id, administrador_id,
     }
 }
 
-exports.getAllUersByAdministradorId = async (administrador_id, email) => {
+exports.getAllUsersByAdministradorId = async (administrador_id, email) => {
     try {
         const whereClause = { administrador_id };
         if(email){

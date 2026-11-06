@@ -9,7 +9,6 @@ dotenv.config();
 const SECRET_KEY = process.env.SECRET_KEY;
 
 exports.loginUser = async (email, password) => {
-    try {
         //verificar si el usuario existe
         const user = await User.findOne({ where: { email } });
         if (!user) {
@@ -21,23 +20,10 @@ exports.loginUser = async (email, password) => {
         if (!isPasswordValid) {
             throw new Error('Contraseña incorrecta');
         }
-
-        // consultar los permisos del rol del usuario
-        const rolePermissions = await RolePermission.findAll({
-            where: { rol_id: user.rol_id },
-            attributes: ['permiso_id']
-        });
-
-        const permissions = rolePermissions.map(rp => rp.permiso_id);
-
-        //generar token JWT
-        const token = jwt.sign(
-            { id: user.id, nombre: user.nombre, email: user.email, rol: user.rol_id, permissions },
+        return jwt.sign(
+            { id: user.id, nombre: user.nombre, email: user.email, rol_id: user.rol_id },
             SECRET_KEY,
             { expiresIn: '1h' }
         );
-        return token;
-    } catch (error) {
-        throw new Error('Error al iniciar sesión');
-    }
+
 };

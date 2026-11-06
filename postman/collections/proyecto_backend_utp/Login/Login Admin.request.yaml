@@ -1,0 +1,28 @@
+$kind: http-request
+url: "{{baseUrl}}/auth/login"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+      "email": "admin@correo.com",
+      "password": "Admin123"
+    }
+auth:
+  type: noauth
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Login exitoso: status 200 y token recibido", () => {
+          pm.response.to.have.status(200);
+
+          const json = pm.response.json();
+          pm.expect(json).to.have.property("token");
+
+          pm.environment.set("token", json.token);
+      });
+    language: text/javascript
+  - type: beforeRequest
+    code: ""
+    language: text/javascript
+order: 1064948646559694

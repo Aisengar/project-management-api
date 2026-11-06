@@ -1,0 +1,28 @@
+$kind: http-request
+url: "{{baseUrl}}/auth/login"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+      "email": "admin@correo.com",
+      "password": "abc1234"
+    }
+auth:
+  type: noauth
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Contraseña incorrecta: status 401",() => {
+          pm.response.to.have.status(401);
+      })
+
+      pm.test("Mensaje de error correcto", () => {
+          const json = pm.response.json();
+          pm.expect(json.message).to.eql("Contraseña incorrecta");
+      })
+    language: text/javascript
+  - type: beforeRequest
+    code: ""
+    language: text/javascript
+order: 3845864961834215

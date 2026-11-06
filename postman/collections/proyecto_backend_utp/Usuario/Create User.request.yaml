@@ -1,0 +1,25 @@
+$kind: http-request
+url: "{{baseUrl}}/api/users/create"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+      "nombre": "Juan",
+      "email": "juan@correo.com",
+      "password": "User123",
+      "rol_id": 2
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Usuario creado: status 201", () => {
+          pm.response.to.have.status(201);
+
+          const json = pm.response.json();
+          pm.expect(json).to.have.property("user");
+
+          pm.environment.set("userId", json.user.id);
+      });
+    language: text/javascript
+order: 1793983850423

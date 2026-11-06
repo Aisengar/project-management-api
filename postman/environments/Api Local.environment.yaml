@@ -1,0 +1,12 @@
+name: Api Local
+values:
+  - key: baseUrl
+    value: ''
+  - key: token
+    value: ''
+  - key: tokenUser
+    value: ''
+  - key: userId
+    value: ''
+  - key: projectId
+    value: ''

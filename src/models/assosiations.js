@@ -1,5 +1,5 @@
 
-const Rol = require('./rol.model');
+const Rol = require('./rolPermission.model');
 const User = require('./user.model');
 const Proyect = require('./proyect.model');
 const UserProyect = require('./userProyect.model');
