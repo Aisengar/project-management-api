@@ -11,6 +11,8 @@ router.get('/proyectos', authMiddleware, proyectController.getAllProyects);
 router.get('/proyectos/:id', authMiddleware, proyectController.getProyectById);
 router.put('/proyectos/:id', authMiddleware, checkRole([ROLES.ADMIN]), proyectController.updateProyect);
 router.delete('/proyectos/:id', authMiddleware, checkRole([ROLES.ADMIN]), proyectController.deleteProyect);
+
+//Añade o eliminar usuarios dentro de los proyectos 
 router.post('/proyectos/:id/usuarios', authMiddleware, checkRole([ROLES.ADMIN]), proyectController.assignUser);
 router.delete('/proyectos/:id/usuarios/:usuarioId', authMiddleware, checkRole([ROLES.ADMIN]), proyectController.removeUser);
 
