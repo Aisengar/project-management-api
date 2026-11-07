@@ -5,7 +5,7 @@ body:
   type: json
   content: |-
     {
-      "nombre": "Juan",
+      "nombre": "C",
       "email": "juan@correo.com",
       "password": "User123",
       "rol_id": 2
